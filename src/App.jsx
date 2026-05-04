@@ -505,6 +505,436 @@ const QUESTIONS = [
     correct: 2,
     explanation: "The Recovery Services Vault's 'Backup Jobs' section shows the status, error codes, and detailed messages for all backup and restore operations, making it the first place to diagnose failures."
   },
+
+  // ─── DOMAIN 1 (continued): Identities & Governance ──────────────────
+  {
+    id: 71, domain: "Identities & Governance",
+    question: "You want users to register their MFA methods before they can access any company resource. Which Azure AD feature enforces this registration flow?",
+    options: ["Conditional Access policy requiring MFA", "Azure AD Identity Protection — User risk policy", "Azure AD Combined security information registration", "Azure AD Password Protection"],
+    correct: 0,
+    explanation: "A Conditional Access policy that requires MFA registration (targeting 'All Users' with the grant 'Require multi-factor authentication') forces users to complete the registration wizard before accessing resources."
+  },
+  {
+    id: 72, domain: "Identities & Governance",
+    question: "You need just-in-time privileged access to the Global Administrator role with approval and time limits. Which feature provides this?",
+    options: ["Azure AD Conditional Access", "Azure AD Privileged Identity Management (PIM)", "Azure AD Identity Protection", "Azure RBAC custom role"],
+    correct: 1,
+    explanation: "PIM provides just-in-time (JIT) activation of privileged roles with approval workflows, time limits, MFA, and audit trails — ideal for minimizing standing privileged access."
+  },
+  {
+    id: 73, domain: "Identities & Governance",
+    question: "Your organization syncs on-premises AD to Azure AD. A user's password changed on-premises but they can't sign in to Azure AD. Which tool do you check FIRST?",
+    options: ["Azure AD Connect Health", "Azure AD Sign-in logs", "Active Directory Users and Computers", "Azure AD Password Protection proxy logs"],
+    correct: 0,
+    explanation: "Azure AD Connect Health monitors the sync infrastructure, shows sync errors, connector status, and latency — the first stop when on-prem changes aren't reflecting in Azure AD."
+  },
+  {
+    id: 74, domain: "Identities & Governance",
+    question: "An Azure Policy assignment is blocking resource deployments in a subscription. You need to exclude one resource group from the policy. What should you use?",
+    options: ["Delete and re-create the policy at resource-group scope", "Set the policy effect to Audit", "Add an exclusion (scope exclusion) to the policy assignment", "Create a resource lock on the resource group"],
+    correct: 2,
+    explanation: "Policy assignments support scope exclusions — you specify one or more child scopes (resource groups, resources) that are exempt from the policy, without changing the policy definition or effect."
+  },
+  {
+    id: 75, domain: "Identities & Governance",
+    question: "Which Azure Policy effect creates a resource automatically when one doesn't exist (e.g., adds a Log Analytics diagnostic setting)?",
+    options: ["Append", "Audit", "DeployIfNotExists", "Modify"],
+    correct: 2,
+    explanation: "DeployIfNotExists triggers an ARM template deployment when a compliant resource doesn't exist. It's used to auto-remediate, such as deploying diagnostic settings when they're missing."
+  },
+  {
+    id: 76, domain: "Identities & Governance",
+    question: "You need to regularly review which external guests still need access to a Teams channel. Which Azure AD feature automates this?",
+    options: ["Azure AD Privileged Identity Management", "Azure AD Access Reviews", "Azure AD Entitlement Management", "Azure AD Conditional Access"],
+    correct: 1,
+    explanation: "Access Reviews let you schedule periodic reviews of group membership, application assignments, or role assignments — reviewers confirm or remove access, and auto-apply decisions can revoke stale guest access."
+  },
+  {
+    id: 77, domain: "Identities & Governance",
+    question: "What is the maximum number of Azure AD directories a single user account can be a member of?",
+    options: ["1", "10", "500", "Unlimited"],
+    correct: 3,
+    explanation: "A user account (UPN) can be a member (or guest) of an unlimited number of Azure AD tenants. There's no hard cap on tenant membership per user."
+  },
+  {
+    id: 78, domain: "Identities & Governance",
+    question: "You want all new Azure resources in a subscription to inherit a 'CostCenter' tag from their resource group. Which policy effect achieves this automatically on creation?",
+    options: ["Deny", "Append", "Modify", "DeployIfNotExists"],
+    correct: 2,
+    explanation: "The Modify effect can add or replace tags on resources during creation or update, including inheriting a tag value from the resource group — without blocking deployment."
+  },
+  {
+    id: 79, domain: "Identities & Governance",
+    question: "Your company has 50 subscriptions under 5 departments. You want to enforce a 'No Public IPs' policy across all subscriptions of one department only. What is the MOST efficient scope?",
+    options: ["Assign the policy to each subscription individually", "Assign the policy to the root management group", "Assign the policy to the department's management group", "Use Azure Blueprints at tenant level"],
+    correct: 2,
+    explanation: "Management groups let you organize subscriptions into a hierarchy. Assigning a policy to a management group automatically applies it to all child subscriptions in that group — one assignment covers all 10 subscriptions of that department."
+  },
+  {
+    id: 80, domain: "Identities & Governance",
+    question: "A user in Azure AD reports they can see resources in a subscription but cannot start or stop VMs. Which built-in role are they MOST likely assigned?",
+    options: ["Owner", "Contributor", "Reader", "Virtual Machine Contributor"],
+    correct: 2,
+    explanation: "The Reader role grants view-only access to all resources in a scope — no ability to create, modify, or perform actions. The user needs at least Virtual Machine Contributor to start/stop VMs."
+  },
+  {
+    id: 81, domain: "Identities & Governance",
+    question: "You need to allow an application to read secrets from Azure Key Vault without using a password or certificate stored in code. What is the BEST approach?",
+    options: ["Store the service principal secret in app settings", "Use a system-assigned managed identity and a Key Vault access policy", "Use an Azure AD B2C flow", "Store the certificate in Azure Blob Storage"],
+    correct: 1,
+    explanation: "System-assigned managed identity gives the app an automatically managed Azure AD identity. Combined with a Key Vault access policy (or RBAC), the app authenticates without any stored credentials."
+  },
+  {
+    id: 82, domain: "Identities & Governance",
+    question: "Which Azure AD license tier is required to use Conditional Access policies?",
+    options: ["Azure AD Free", "Azure AD P1", "Azure AD P2", "Microsoft 365 E3"],
+    correct: 1,
+    explanation: "Conditional Access requires Azure AD Premium P1 (or higher). P2 adds Identity Protection risk signals. Free tier only has basic security defaults, not granular CA policies."
+  },
+  {
+    id: 83, domain: "Identities & Governance",
+    question: "You need to enforce that developers can only deploy resources to the East US region across 20 subscriptions. What is the BEST single action?",
+    options: ["Create a Conditional Access policy for location", "Assign the 'Allowed locations' built-in policy to the management group containing those subscriptions", "Create a custom RBAC role restricting regions", "Use Azure Blueprints to lock regions"],
+    correct: 1,
+    explanation: "The 'Allowed locations' built-in Azure Policy restricts which Azure regions resources can be deployed to. Assigning it at management group scope covers all child subscriptions in one step."
+  },
+  {
+    id: 84, domain: "Identities & Governance",
+    question: "What differentiates Azure AD B2B from Azure AD B2C?",
+    options: ["B2B is for end consumers; B2C is for partner employees", "B2B federates partner/guest identities into your tenant; B2C is a customer identity platform for public apps", "B2B requires Azure AD P2; B2C requires P1", "They are identical features with different naming"],
+    correct: 1,
+    explanation: "Azure AD B2B lets external partners collaborate using their existing identity (guest accounts in your tenant). Azure AD B2C is a separate CIAM service for building customer-facing apps where users can sign up/in with social or local accounts."
+  },
+  {
+    id: 85, domain: "Identities & Governance",
+    question: "A resource group has a 'CanNotDelete' resource lock. An Owner of the subscription tries to delete the resource group. What happens?",
+    options: ["The delete succeeds because Owner overrides locks", "The delete fails — locks override RBAC permissions for everyone except Lock administrators", "Only the user who created the lock can delete", "The lock only applies to resources inside, not the resource group itself"],
+    correct: 1,
+    explanation: "Resource locks override RBAC permissions. A CanNotDelete lock prevents deletion regardless of role — even Owner or Global Administrator cannot delete without first removing the lock."
+  },
+
+  // ─── DOMAIN 2 (continued): Storage ───────────────────────────────────
+  {
+    id: 86, domain: "Storage",
+    question: "You need to automatically move blobs to the Cool tier after 30 days and delete them after 365 days. Which feature handles this?",
+    options: ["Azure Blob versioning", "Lifecycle management policy", "Azure Backup retention", "Storage immutability policy"],
+    correct: 1,
+    explanation: "Blob lifecycle management policies define rules with filters (prefix, blob type) and actions (tierToCool, tierToArchive, delete) triggered by age thresholds — fully automated, no custom scripts needed."
+  },
+  {
+    id: 87, domain: "Storage",
+    question: "A storage account uses LRS redundancy. You need to protect against an entire Azure datacenter failure. What should you change to?",
+    options: ["ZRS", "GRS", "GZRS", "RA-GRS"],
+    correct: 0,
+    explanation: "ZRS (Zone-Redundant Storage) replicates data synchronously across 3 availability zones in the same region, protecting against datacenter (zone) failures. GRS protects against region failures but doesn't guarantee zone-level durability."
+  },
+  {
+    id: 88, domain: "Storage",
+    question: "You want to access Azure Blob Storage from a VNet without traffic leaving the Microsoft backbone. Which feature should you configure?",
+    options: ["Storage firewall with IP rules", "Service Endpoint for Microsoft.Storage on the subnet", "VNet peering with the storage VNet", "ExpressRoute public peering"],
+    correct: 1,
+    explanation: "Service Endpoints route traffic from the subnet to Azure Storage over the Microsoft backbone, never the public internet. They extend the VNet's private address space to the service."
+  },
+  {
+    id: 89, domain: "Storage",
+    question: "Which SAS type allows you to define reusable access policies that can be revoked without regenerating the storage account key?",
+    options: ["Account SAS", "Service SAS with stored access policy", "User delegation SAS", "Ad-hoc SAS"],
+    correct: 1,
+    explanation: "A Service SAS linked to a stored access policy can be revoked by deleting or modifying the policy — you don't need to rotate the account key. This is the recommended approach for service-level SAS tokens."
+  },
+  {
+    id: 90, domain: "Storage",
+    question: "Azure File Sync is deployed with a cloud tiering policy set to 20% free space. What does this mean?",
+    options: ["20% of Azure Files capacity is reserved for tiered data", "The server endpoint will keep at least 20% of the local volume free by tiering cold files to Azure", "20% of files will be cached locally", "The policy applies only during business hours"],
+    correct: 1,
+    explanation: "Cloud tiering free space policy ensures that the Windows Server volume always has at least the specified percentage free, by replacing least-recently-used files with pointer stubs that recall on demand from Azure."
+  },
+  {
+    id: 91, domain: "Storage",
+    question: "You need to copy 50 TB of on-premises data to Azure Blob Storage with the LEAST network impact. Which service should you use?",
+    options: ["AzCopy over the internet", "Azure Data Factory", "Azure Import/Export (Data Box)", "Azure Storage Explorer"],
+    correct: 2,
+    explanation: "Azure Data Box (Import/Export) ships physical storage devices — you copy data locally, ship the device to Microsoft, and they upload it to Azure. Ideal for large datasets where network transfer would take too long or consume too much bandwidth."
+  },
+  {
+    id: 92, domain: "Storage",
+    question: "What is the purpose of soft delete for blobs?",
+    options: ["Encrypts blobs at rest", "Allows recovery of deleted blobs within a configurable retention period", "Replicates blobs to a secondary region", "Prevents blobs from being overwritten"],
+    correct: 1,
+    explanation: "Blob soft delete retains deleted or overwritten blobs in a 'soft deleted' state for 1–365 days. During this window, they can be undeleted — protection against accidental deletion or application bugs."
+  },
+  {
+    id: 93, domain: "Storage",
+    question: "You need to store compliance documents that must not be modified or deleted for 7 years. Which storage feature enforces this?",
+    options: ["Blob snapshots", "Azure Backup for Blobs", "Immutable blob storage (WORM policy)", "Azure Key Vault managed HSM"],
+    correct: 2,
+    explanation: "Immutable blob storage supports WORM (Write Once, Read Many) policies — time-based retention locks or legal holds — that prevent modification or deletion even by storage account owners, satisfying regulatory compliance."
+  },
+  {
+    id: 94, domain: "Storage",
+    question: "A storage account has public network access disabled. How can an application in a different VNet access blobs securely?",
+    options: ["Re-enable public access temporarily during transfers", "Configure a Private Endpoint in the application's VNet", "Use a Service Endpoint on the storage account", "Use Shared Key authentication from a public IP"],
+    correct: 1,
+    explanation: "A Private Endpoint assigns a private IP from your VNet to the storage account, enabling secure access over the Microsoft backbone without public internet exposure — even when public access is disabled."
+  },
+  {
+    id: 95, domain: "Storage",
+    question: "Which Azure storage redundancy option provides read access to data in the secondary region at all times, even without a failover?",
+    options: ["GRS", "RA-GRS", "ZRS", "GZRS"],
+    correct: 1,
+    explanation: "RA-GRS (Read-Access Geo-Redundant Storage) replicates to a secondary region AND provides a secondary read endpoint (URL with -secondary suffix) that is always accessible — unlike GRS which only allows reads after a failover."
+  },
+  {
+    id: 96, domain: "Storage",
+    question: "You need to grant a third-party auditor read-only access to blobs in a container for 48 hours without creating an Azure AD account. What is the BEST approach?",
+    options: ["Add them as a Guest user with Storage Blob Data Reader role", "Generate a SAS token with read permissions expiring in 48 hours", "Enable public anonymous access on the container", "Give them the storage account key"],
+    correct: 1,
+    explanation: "A SAS token scoped to the container with read permissions and a 48-hour expiry is the most appropriate option — no account creation, granular permissions, and automatically expires."
+  },
+  {
+    id: 97, domain: "Storage",
+    question: "What is the minimum redundancy required to use Azure Files Premium tier?",
+    options: ["LRS or ZRS only", "GRS or GZRS", "LRS only", "Any redundancy option"],
+    correct: 0,
+    explanation: "Azure Files Premium (FileStorage accounts) supports LRS and ZRS only. Standard Azure Files supports LRS, ZRS, GRS, and GZRS."
+  },
+  {
+    id: 98, domain: "Storage",
+    question: "Which AzCopy command syntax correctly copies all blobs from a container to a local directory?",
+    options: ["azcopy copy 'https://account.blob.core.windows.net/container' './local' --recursive", "azcopy sync 'https://account.blob.core.windows.net/container' './local'", "azcopy upload './local' 'https://account.blob.core.windows.net/container'", "azcopy pull 'https://account.blob.core.windows.net/container' './local'"],
+    correct: 0,
+    explanation: "azcopy copy with --recursive downloads all blobs from a container URL to a local path. 'sync' is for keeping source and destination in sync (deletes extras). 'upload' and 'pull' are not valid AzCopy commands."
+  },
+
+  // ─── DOMAIN 3 (continued): Compute ───────────────────────────────────
+  {
+    id: 99, domain: "Compute",
+    question: "You need to scale out a set of identical VMs automatically based on CPU load and ensure zero downtime during OS updates. Which feature should you use?",
+    options: ["Availability Set", "VM Scale Set with rolling upgrade policy", "Azure Dedicated Host", "Proximity Placement Group"],
+    correct: 1,
+    explanation: "VM Scale Sets with rolling upgrade policy update instances in batches, keeping a portion always running — ensuring zero downtime. They also auto-scale based on metrics like CPU."
+  },
+  {
+    id: 100, domain: "Compute",
+    question: "Which Azure service provides secure RDP/SSH access to VMs directly from the Azure portal WITHOUT exposing public IP addresses or requiring open inbound ports?",
+    options: ["Azure VPN Gateway", "Azure Bastion", "Azure Firewall DNAT rule", "Just-in-time VM access"],
+    correct: 1,
+    explanation: "Azure Bastion is a managed PaaS service that provides browser-based RDP/SSH over TLS to VMs without exposing them to the public internet — no public IP needed on the VM, no inbound 3389/22 ports."
+  },
+  {
+    id: 101, domain: "Compute",
+    question: "You need to run a containerized workload that scales to zero when idle and requires no infrastructure management. Which Azure service is the BEST fit?",
+    options: ["Azure Kubernetes Service (AKS)", "Azure Container Instances (ACI)", "Azure VM with Docker", "Azure App Service with container"],
+    correct: 1,
+    explanation: "ACI runs containers on-demand without managing VMs or orchestration. It starts in seconds and you only pay while running — ideal for burst, short-lived, or scale-to-zero workloads."
+  },
+  {
+    id: 102, domain: "Compute",
+    question: "An App Service web app needs to access an Azure SQL Database securely without storing connection credentials in config files. What is the BEST approach?",
+    options: ["Store credentials in Azure Key Vault and reference with app settings", "Enable system-assigned managed identity and grant it access to SQL using Azure AD authentication", "Use a service principal with a certificate stored in Blob Storage", "Hard-code credentials in the app source code"],
+    correct: 1,
+    explanation: "With a managed identity, the App Service gets an Azure AD identity automatically. Granting it access to SQL via Azure AD authentication eliminates the need to store or rotate any credentials."
+  },
+  {
+    id: 103, domain: "Compute",
+    question: "You want to test a new version of an App Service app in production conditions before swapping it to the live slot. Which feature enables this?",
+    options: ["App Service Backup", "Deployment slots (staging slot)", "Azure Traffic Manager weighted routing", "Azure Front Door A/B routing"],
+    correct: 1,
+    explanation: "Deployment slots let you deploy to a 'staging' slot (with production configuration via slot settings), test thoroughly, then do a warm swap — the staging slot becomes production with zero downtime."
+  },
+  {
+    id: 104, domain: "Compute",
+    question: "Which App Service plan tier supports auto-scaling, custom domains, SSL, and deployment slots?",
+    options: ["Free (F1)", "Shared (D1)", "Standard (S1) or higher", "Basic (B1)"],
+    correct: 2,
+    explanation: "Standard tier and above support auto-scaling rules and deployment slots (up to 5). Basic supports custom domains and SSL but NOT auto-scaling or slots. Free and Shared have significant limitations."
+  },
+  {
+    id: 105, domain: "Compute",
+    question: "Your AKS cluster nodes are running at 90% CPU. New pods are stuck in Pending state. What is the FASTEST way to accommodate them?",
+    options: ["Add more pods to the existing nodes", "Enable the cluster autoscaler on the node pool", "Manually add a new node pool", "Increase pod resource limits"],
+    correct: 1,
+    explanation: "The cluster autoscaler detects pending pods that can't schedule due to insufficient node resources, then automatically scales out the node pool. It's the fastest way to accommodate burst demand without manual intervention."
+  },
+  {
+    id: 106, domain: "Compute",
+    question: "You need to run a one-time data processing batch job that uses 1000 VMs in parallel for 2 hours. Which Azure service is designed for this?",
+    options: ["Azure VM Scale Sets", "Azure Batch", "Azure Kubernetes Service", "Azure App Service"],
+    correct: 1,
+    explanation: "Azure Batch is purpose-built for large-scale parallel and HPC workloads — it provisions, manages, and scales pools of compute nodes, distributes tasks, and tears down automatically after completion."
+  },
+  {
+    id: 107, domain: "Compute",
+    question: "What is the purpose of Proximity Placement Groups in Azure?",
+    options: ["Group VMs in different regions for failover", "Keep a set of VMs physically close together within a datacenter to minimize inter-VM latency", "Automatically place VMs across availability zones", "Reserve capacity for VMs in a specific region"],
+    correct: 1,
+    explanation: "Proximity Placement Groups (PPG) co-locate VMs in the same physical data center rack, minimizing network latency between them — critical for tightly coupled HPC, SAP HANA, or latency-sensitive workloads."
+  },
+  {
+    id: 108, domain: "Compute",
+    question: "A VM uses Spot pricing. Azure sends a 30-second eviction notice. What should your architecture account for?",
+    options: ["Spot VMs cannot be evicted once running", "The workload must tolerate interruption and be stateless or checkpoint frequently", "Azure provides a 1-hour warning and migrates the VM", "Spot VMs in Availability Zones cannot be evicted"],
+    correct: 1,
+    explanation: "Spot VMs can be evicted with 30 seconds notice when Azure needs capacity. Workloads must be stateless, use checkpointing, or store state externally — suitable for batch jobs, CI/CD agents, dev/test environments."
+  },
+  {
+    id: 109, domain: "Compute",
+    question: "Which VM extension enables automatic patching and collects patch compliance data for Azure VMs?",
+    options: ["Azure Monitor Agent", "Log Analytics Agent", "Azure Update Manager / Guest Configuration extension", "Azure Automation DSC"],
+    correct: 2,
+    explanation: "Azure Update Manager (using the Azure Policies and machine extensions framework) assesses patch compliance and can automatically install updates on Azure VMs — replacing the older Update Management solution in Azure Automation."
+  },
+  {
+    id: 110, domain: "Compute",
+    question: "You need to deploy a containerized app that requires persistent storage and service discovery between microservices, with full orchestration. Which Azure service should you use?",
+    options: ["Azure Container Instances", "Azure Kubernetes Service (AKS)", "Azure App Service with Docker Compose", "Azure Container Apps"],
+    correct: 1,
+    explanation: "AKS provides full Kubernetes orchestration including persistent volumes, service discovery, ingress, horizontal pod autoscaling, and namespace isolation — the right choice for complex multi-container workloads."
+  },
+  {
+    id: 111, domain: "Compute",
+    question: "An Azure VM is unresponsive and you cannot connect via RDP. Which Azure feature lets you view the boot screen and run commands without network connectivity?",
+    options: ["Azure Bastion", "Serial Console and Boot Diagnostics", "Azure Network Watcher", "VM Run Command via Azure CLI"],
+    correct: 1,
+    explanation: "Serial Console provides terminal access via the COM port (works even without network). Boot Diagnostics shows a screenshot of the VM's boot state. Together they allow diagnosing and fixing VMs that are unresponsive to RDP/SSH."
+  },
+
+  // ─── DOMAIN 4 (continued): Networking ────────────────────────────────
+  {
+    id: 112, domain: "Networking",
+    question: "You need to protect a web app from SQL injection and XSS attacks at the HTTP layer. Which Azure service provides this?",
+    options: ["Azure Firewall", "Network Security Group", "Azure Application Gateway with WAF", "Azure DDoS Protection Standard"],
+    correct: 2,
+    explanation: "Application Gateway with WAF (Web Application Firewall) inspects HTTP traffic for OWASP threats like SQL injection and XSS at layer 7 — NSG and Azure Firewall operate at layers 3-4 and don't parse HTTP payloads."
+  },
+  {
+    id: 113, domain: "Networking",
+    question: "What is the key difference between Azure Load Balancer and Azure Application Gateway?",
+    options: ["Load Balancer is regional; Application Gateway is global", "Load Balancer works at layer 4 (TCP/UDP); Application Gateway works at layer 7 (HTTP/HTTPS)", "Application Gateway only works with VMs; Load Balancer works with all resources", "Load Balancer supports WAF; Application Gateway does not"],
+    correct: 1,
+    explanation: "Azure Load Balancer distributes traffic at layer 4 (transport layer, port/protocol). Application Gateway routes at layer 7 (application layer), enabling URL-based routing, session affinity, SSL termination, and WAF."
+  },
+  {
+    id: 114, domain: "Networking",
+    question: "Users across three continents need to be routed to the nearest healthy application endpoint. Which Azure service provides latency-based global routing with health monitoring?",
+    options: ["Azure Load Balancer Standard", "Azure Application Gateway", "Azure Traffic Manager", "Azure Front Door"],
+    correct: 2,
+    explanation: "Traffic Manager is a DNS-based global load balancer. Its 'Performance' routing method directs users to the closest endpoint by measuring DNS latency, with health probes to avoid directing traffic to unhealthy endpoints."
+  },
+  {
+    id: 115, domain: "Networking",
+    question: "An NSG rule has priority 100 allowing port 80 and priority 200 denying port 80. What happens to HTTP traffic?",
+    options: ["Both rules apply and traffic is denied", "The deny rule wins regardless of priority", "The allow rule wins because lower priority number = higher priority", "Traffic is blocked by default"],
+    correct: 2,
+    explanation: "NSG rules are processed in order from lowest to highest priority number. Priority 100 is evaluated before priority 200, so the allow rule at 100 is matched first and HTTP traffic is allowed."
+  },
+  {
+    id: 116, domain: "Networking",
+    question: "Two VNets need to communicate. They are in different Azure regions. Which connectivity option requires the LEAST configuration and NO gateway?",
+    options: ["VPN Gateway connection", "ExpressRoute", "Global VNet Peering", "Azure Virtual WAN"],
+    correct: 2,
+    explanation: "Global VNet Peering extends VNet peering across regions with no gateway required. Traffic traverses the Microsoft backbone. It's the simplest option for cross-region VNet connectivity."
+  },
+  {
+    id: 117, domain: "Networking",
+    question: "You want to access Azure PaaS services (SQL Database, Key Vault) from a VNet using a private IP address, making them invisible to the public internet. Which feature provides this?",
+    options: ["Service Endpoints", "Private Endpoints", "VNet Integration", "Network Security Groups"],
+    correct: 1,
+    explanation: "Private Endpoints assign a private IP from your VNet to the PaaS service. DNS resolves the service's FQDN to the private IP, so traffic never leaves your VNet — unlike Service Endpoints, which still route to the service's public IP."
+  },
+  {
+    id: 118, domain: "Networking",
+    question: "Your on-premises network connects to Azure via ExpressRoute. You also want to route all VM internet traffic through your on-premises firewall. Which Azure feature forces this?",
+    options: ["NSG outbound deny rule for internet", "Service Endpoint for internet traffic", "User Defined Route (UDR) with default route (0.0.0.0/0) pointing to on-premises virtual appliance", "Azure Firewall with DNAT rules"],
+    correct: 2,
+    explanation: "A UDR with a default route (0.0.0.0/0) pointing to the on-premises NVA/firewall (via ExpressRoute) is called forced tunneling — it redirects all internet-bound VM traffic through the on-premises network for inspection."
+  },
+  {
+    id: 119, domain: "Networking",
+    question: "Which Azure tool captures and analyzes VM network traffic flows, and can detect security anomalies using traffic analytics?",
+    options: ["Azure Monitor", "Azure Firewall Logs", "Network Watcher with NSG Flow Logs", "Azure Sentinel"],
+    correct: 2,
+    explanation: "Network Watcher's NSG Flow Logs capture source/destination IP, port, protocol, and allow/deny decisions. Combined with Traffic Analytics (Log Analytics), it visualizes patterns and flags anomalies."
+  },
+  {
+    id: 120, domain: "Networking",
+    question: "You need to resolve Azure private DNS zone hostnames from an on-premises network connected via ExpressRoute. What must you configure?",
+    options: ["A public DNS delegation for the private zone", "A DNS resolver or conditional forwarder on-premises pointing to Azure DNS (168.63.129.16)", "Azure DNS Private Resolver with inbound endpoints", "ExpressRoute Route Filter for DNS traffic"],
+    correct: 2,
+    explanation: "Azure DNS Private Resolver with an inbound endpoint provides a reachable IP that on-premises DNS forwarders can send queries to. This is the recommended way to resolve Azure private DNS zones from on-premises since 168.63.129.16 is not reachable off-Azure."
+  },
+  {
+    id: 121, domain: "Networking",
+    question: "What is the default behavior when you associate an NSG with a subnet AND with a NIC on a VM inside that subnet?",
+    options: ["Only the subnet NSG is applied", "Only the NIC NSG is applied", "Both NSGs are evaluated — traffic must be allowed by both to reach the VM", "The NSG with lower priority wins"],
+    correct: 2,
+    explanation: "When NSGs are on both the subnet and NIC, inbound traffic is evaluated against the subnet NSG first, then the NIC NSG — traffic must pass both. Outbound traffic is evaluated in reverse order (NIC first, then subnet)."
+  },
+  {
+    id: 122, domain: "Networking",
+    question: "You need to connect 100 branch offices to Azure and to each other through a central hub, with automatic routing and SD-WAN support. Which Azure service is designed for this?",
+    options: ["VPN Gateway with BGP", "Azure Virtual WAN", "Multiple VNet Peerings with NVA", "Azure ExpressRoute with multiple circuits"],
+    correct: 1,
+    explanation: "Azure Virtual WAN is a networking service that provides optimized, hub-and-spoke connectivity between branches, Azure VNets, and the internet with integrated BGP routing — designed for large-scale branch connectivity scenarios."
+  },
+
+  // ─── DOMAIN 5 (continued): Monitor & Backup ──────────────────────────
+  {
+    id: 123, domain: "Monitor & Backup",
+    question: "You want to be alerted when a VM's available memory drops below 500 MB. Which Azure Monitor component do you configure?",
+    options: ["Diagnostic Setting", "Activity Log alert", "Metric alert rule", "Log Analytics workspace query"],
+    correct: 2,
+    explanation: "Metric alert rules evaluate numeric signals (CPU, memory, disk) against thresholds at a configured frequency. The Azure Monitor Agent (AMA) must be installed to collect in-guest metrics like available memory."
+  },
+  {
+    id: 124, domain: "Monitor & Backup",
+    question: "A resource was accidentally deleted. Where do you look in Azure Monitor to find out WHO deleted it and WHEN?",
+    options: ["Metrics Explorer", "Log Analytics Workspace", "Activity Log", "Azure Advisor"],
+    correct: 2,
+    explanation: "The Activity Log records all control-plane operations (ARM operations) — create, delete, update — including the caller identity, timestamp, and result. It's the authoritative audit trail for resource lifecycle events."
+  },
+  {
+    id: 125, domain: "Monitor & Backup",
+    question: "Your team wants to run a KQL query to find all failed login attempts to Azure VMs in the past 24 hours. Where do you write and run this query?",
+    options: ["Azure Monitor Metrics Explorer", "Log Analytics Workspace", "Azure Security Center", "Azure Activity Log"],
+    correct: 1,
+    explanation: "Log Analytics Workspace stores and indexes log data from VMs (via AMA/MMA), Azure services, and security solutions. KQL queries run against this store — Metrics Explorer is for numeric time-series data only."
+  },
+  {
+    id: 126, domain: "Monitor & Backup",
+    question: "You need to restore a VM to a state from 3 days ago. The VM was backed up daily with Azure Backup. What is the recovery option?",
+    options: ["VM snapshot restore from Blob Storage", "Restore from Recovery Services Vault recovery point to a new or existing VM", "Re-deploy from ARM template", "Use Azure Site Recovery to initiate failover"],
+    correct: 1,
+    explanation: "Azure Backup stores recovery points in a Recovery Services Vault. You select the desired recovery point (3 days ago) and restore to the original VM location or to a new VM — this is the standard restore path."
+  },
+  {
+    id: 127, domain: "Monitor & Backup",
+    question: "What is the difference between RPO and RTO in disaster recovery planning?",
+    options: ["RPO is the recovery time; RTO is the data loss tolerance", "RPO is maximum tolerable data loss (time); RTO is maximum tolerable downtime", "RPO and RTO are both measured in data volume", "RTO applies only to Active-Active architectures"],
+    correct: 1,
+    explanation: "RPO (Recovery Point Objective) defines how much data loss is acceptable — e.g., RPO of 1 hour means backups/replication must be at most 1 hour old. RTO (Recovery Time Objective) defines how quickly the system must be back online."
+  },
+  {
+    id: 128, domain: "Monitor & Backup",
+    question: "Azure Site Recovery (ASR) is replicating an on-premises Hyper-V VM to Azure. The primary site goes down. What is the process to bring the VM online in Azure?",
+    options: ["ASR automatically starts the VM in Azure with no action needed", "Run a test failover first, then a planned failover from the Recovery Services Vault", "Restore from Azure Backup", "Trigger a failover from the Recovery Services Vault; ASR brings the replicated VM online in Azure"],
+    correct: 3,
+    explanation: "ASR continuously replicates the VM to Azure. On primary site failure, you trigger an unplanned failover from the Recovery Services Vault (or automate it via recovery plans) — ASR brings the VM online in Azure using the latest replicated state."
+  },
+  {
+    id: 129, domain: "Monitor & Backup",
+    question: "Which Azure Monitor feature allows you to define a set of KQL queries, charts, and metrics in a single reusable view that can be shared across teams?",
+    options: ["Azure Dashboard", "Azure Workbooks", "Metrics Explorer pinned charts", "Application Insights Live Metrics"],
+    correct: 1,
+    explanation: "Azure Monitor Workbooks are interactive documents that combine KQL queries, metrics visualizations, text, and parameter controls into shareable, parameterized reports — much richer than static dashboard tiles."
+  },
+  {
+    id: 130, domain: "Monitor & Backup",
+    question: "You apply a 'CanNotDelete' lock to a resource group. A team member needs to update the tags on a resource inside it. Can they?",
+    options: ["No — CanNotDelete prevents all modifications including tag updates", "Yes — CanNotDelete only prevents deletion, not modification of resources", "Only the lock owner can modify resources", "Tags are managed at subscription level and are unaffected by locks"],
+    correct: 1,
+    explanation: "CanNotDelete lock only prevents deletion. Read and write operations (including tag updates, configuration changes) are still permitted on resources within the locked scope — only ReadOnly locks block modifications."
+  },
 ];
 
 const DOMAIN_META = {
@@ -665,7 +1095,7 @@ export default function App() {
 
       <div style={s.card}>
         <div style={s.domainBadge}>{meta.icon} {q.domain}</div>
-        <div style={s.qCount}>Q{q.id} of 70</div>
+        <div style={s.qCount}>Q{q.id} of {QUESTIONS.length}</div>
         <div style={s.question}>{q.question}</div>
         <div style={s.options}>
           {q.options.map((opt, i) => (
